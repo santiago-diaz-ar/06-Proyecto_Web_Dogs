@@ -2,19 +2,13 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env;
 
 const sequelize = new Sequelize(
-    `postgresql://dogs_rnkr_user:0cUYo1VRvXatD06UF9XhPI597r3EpLgB@dpg-cv1qqqd2ng1s738jvgp0-a.oregon-postgres.render.com/dogs_rnkr`,
+    `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
     {  
       logging: false,  
       native: false,  
-      dialectOptions: {  
-        ssl: {  
-          require: true,  
-          rejectUnauthorized: false // Esto puede ser necesario en algunos entornos de nube.  
-        }  
-      },  
     }  
 );
 const basename = path.basename(__filename);
